@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     HOST: str = "0.0.0.0"
     PORT: int = 8000
+    STATIC_IP: str = "182.48.204.87"
     
     # SQLite Database
     DATABASE_URL: str = "sqlite:///./cfs_transport.db"

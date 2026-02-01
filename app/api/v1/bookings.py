@@ -68,9 +68,6 @@ async def create_booking(
             destination_gate_in_time=booking_data.destination_gate_in_time,
             destination_contact_name=booking_data.destination_contact_name,
             destination_contact_phone=booking_data.destination_contact_phone,
-            # CFS Location (from the admin who creates the booking)
-            cfs_location_id=current_user.cfs_id,
-            cfs_location_name=current_user.cfs_name or current_user.name,
             # Legacy
             container_type=booking_data.container_type,
             container_size=booking_data.container_size,

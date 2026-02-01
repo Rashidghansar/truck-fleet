@@ -89,10 +89,6 @@ class BookingResponse(BaseModel):
     notes: Optional[str] = None
     distance_km: Optional[float] = None
     
-    # CFS Location Info
-    cfs_location_id: Optional[str] = None
-    cfs_location_name: Optional[str] = None
-    
     # Gate codes
     gate_qr_code: Optional[str] = None
     gate_numeric_code: Optional[str] = None

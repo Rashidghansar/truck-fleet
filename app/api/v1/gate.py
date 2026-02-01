@@ -600,8 +600,7 @@ async def verify_gate_code(
             "can_checkout": can_checkout,
             "cfs": {
                 "id": booking.cfs_id,
-                "name": booking.cfs_location_name or (cfs_user.cfs_name if cfs_user else None) or (cfs_user.name if cfs_user else "Unknown"),
-                "location_id": booking.cfs_location_id,
+                "name": (cfs_user.cfs_name if cfs_user else None) or (cfs_user.name if cfs_user else "Unknown"),
             },
             "driver": {
                 "id": driver.id if driver else None,

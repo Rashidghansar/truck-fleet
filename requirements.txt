@@ -1,0 +1,28 @@
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Database
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+
+# File Handling
+python-multipart==0.0.6
+aiofiles==23.2.1
+Pillow==10.1.0
+
+# Utilities
+email-validator==2.1.0
+python-dateutil==2.8.2
+pytz==2023.3
+python-dotenv==1.2.1
+
+# WebSockets
+websockets==12.0

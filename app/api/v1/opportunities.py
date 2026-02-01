@@ -469,7 +469,7 @@ async def decline_negotiation(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    """Decline a negotiation offer"""
+    """Decline a negotiation offer - booking stays live for other suppliers"""
     negotiation = db.query(Negotiation).filter(Negotiation.id == negotiation_id).first()
     if not negotiation:
         raise HTTPException(status_code=404, detail="Negotiation not found")
@@ -478,9 +478,25 @@ async def decline_negotiation(
     if reason:
         negotiation.justification = f"Declined: {reason}"
     
+    # Get the booking and reset to pending status so it stays visible for other suppliers
+    booking = db.query(Booking).filter(Booking.id == negotiation.booking_id).first()
+    if booking and booking.status == BookingStatus.NEGOTIATING.value:
+        # Only reset to pending if currently negotiating
+        # Check if there are any other pending negotiations
+        pending_negotiations = db.query(Negotiation).filter(
+            Negotiation.booking_id == booking.id,
+            Negotiation.id != negotiation_id,
+            Negotiation.status == "pending"
+        ).count()
+        
+        # If no other pending negotiations, reset booking to pending
+        if pending_negotiations == 0:
+            booking.status = BookingStatus.PENDING.value
+            booking.aggregator_id = None  # Clear the aggregator so others can bid
+    
     db.commit()
     
-    return ResponseModel(success=True, message="Offer declined")
+    return ResponseModel(success=True, message="Offer declined. Booking is still available for other suppliers.")
 
 
 @router.post("/{booking_id}/assign-driver", response_model=ResponseModel)
